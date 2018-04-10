@@ -4,13 +4,8 @@ class Grid extends Component {
   constructor(props) {
     super(props)
 
-    let repos
-    if (__isBrowser__) {
-      repos = window.__INITIAL_DATA__
-      delete window.__INITIAL_DATA__
-    } else {
-      repos = this.props.staticContext.data
-    }
+    let repos = this.props.staticContext.data
+
 
     this.state = {
       repos,
