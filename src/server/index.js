@@ -1,5 +1,4 @@
 import express from "express"
-import cors from "cors"
 import React from "react"
 import { renderToString } from "react-dom/server"
 import { StaticRouter, matchPath } from "react-router-dom"
@@ -19,7 +18,6 @@ import reducers from '../shared/redux/reducers/combineReducers';
 const env = process.env.NODE_ENV || 'development';
 const app = express()
 
-app.use(cors())
 app.use(express.static("public"))
 
 if(env === "development") { // development mode has hot replace funtion
@@ -33,7 +31,7 @@ if(env === "development") { // development mode has hot replace funtion
 
 app.get("*", (req, res, next) => {
 
-  const store = createStore(reducers, {}, applyMiddleware(thunk));
+//  const store = createStore(reducers, {}, applyMiddleware(thunk));
 
   const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
 
@@ -44,14 +42,12 @@ app.get("*", (req, res, next) => {
   promise.then((data) => {
     const context = { data }
 
-    let preloadedState = store.getState();
+   // let preloadedState = store.getState();
 
     const markup = renderToString(
-        <Provider store={store}>
             <StaticRouter location={req.url} context={context}>
                 <App />
             </StaticRouter>
-        </Provider>
     )
 
     res.send(`
@@ -61,7 +57,6 @@ app.get("*", (req, res, next) => {
           <title>SSR with RR</title>
           <link rel="stylesheet" href="./main.css">
           <script src="/bundle.js" defer></script>
-          <script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\\u003c')}</script>
           <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
         </head>
 

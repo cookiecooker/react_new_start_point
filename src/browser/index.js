@@ -8,10 +8,9 @@ import store from '../shared/store';
 import style from '../css/main.css';
 
 hydrate(
-    <Provider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </Provider>,
+    ,
   document.getElementById('app')
 );
