@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
     module: {
         rules: [
@@ -7,53 +9,31 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader","postcss-loader"]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: "style-loader" // creates style nodes from JS strings
+                    },
+                    {
+                        loader: "css-loader" // translates CSS into CommonJS
+                    },
+                    {
+                        loader: "sass-loader" // compiles Sass to CSS
+                    }
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "main.css",
+            chunkFilename: "[id].css"
+        })
+    ]
 };
-
-// var path = require('path')
-// var webpack = require('webpack')
-// var nodeExternals = require('webpack-node-externals')
-//
-// var browserConfig = {
-//   entry: './src/browser/index.js',
-//   output: {
-//     path: path.resolve(__dirname, 'public'),
-//     filename: 'bundle.js',
-//     publicPath: '/'
-//   },
-//   module: {
-//     rules: [
-//       { test: /\.(js)$/, use: 'babel-loader' },
-//     ]
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       __isBrowser__: "true"
-//     })
-//   ]
-// }
-//
-// var serverConfig = {
-//   entry: './src/server/index.js',
-//   target: 'node',
-//   externals: [nodeExternals()],
-//   output: {
-//     path: __dirname,
-//     filename: 'server.js',
-//     publicPath: '/'
-//   },
-//   module: {
-//     rules: [
-//       { test: /\.(js)$/, use: 'babel-loader' }
-//     ]
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       __isBrowser__: "false"
-//     })
-//   ]
-// }
-//
-// module.exports = [browserConfig, serverConfig]

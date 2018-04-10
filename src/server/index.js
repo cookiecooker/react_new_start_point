@@ -22,7 +22,6 @@ app.get("*", (req, res, next) => {
   promise.then((data) => {
     const context = { data }
 
-    console.log('log: ', data)
 
     const markup = renderToString(
       <StaticRouter location={req.url} context={context}>
@@ -35,6 +34,7 @@ app.get("*", (req, res, next) => {
       <html>
         <head>
           <title>SSR with RR</title>
+          <link rel="stylesheet" href="./main.css">
           <script src="/bundle.js" defer></script>
           <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
         </head>

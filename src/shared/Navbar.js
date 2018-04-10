@@ -20,14 +20,17 @@ export default function Navbar () {
   }]
 
   return (
-    <ul>
-      {languages.map(({ name, param }) => (
-        <li key={param}>
-          <NavLink activeStyle={{fontWeight: 'bold'}} to={`/popular/${param}`}>
-            {name}
-          </NavLink>
-        </li>
-      ))}
-    </ul>
+      <div>
+        <p className="a">sdfsdfsdf</p>
+        <ul>
+            {languages.map(({ name, param }) => (
+                <li key={param}>
+                  <NavLink activeStyle={{fontWeight: 'bold'}} to={`/popular/${param}`}>
+                      {name}
+                  </NavLink>
+                </li>
+            ))}
+        </ul>
+      </div>
   )
 }
