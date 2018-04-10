@@ -4,8 +4,10 @@ class Grid extends Component {
   constructor(props) {
     super(props)
 
-      let repos = window.__INITIAL_DATA__;
-      delete window.__INITIAL_DATA__;
+    //  let repos = window.__INITIAL_DATA__;
+    //  delete window.__INITIAL_DATA__;
+
+    let repos = this.props.staticContext.data
 
 
     this.state = {
